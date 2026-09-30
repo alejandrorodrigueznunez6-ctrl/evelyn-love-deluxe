@@ -1,49 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Para Evelyn</title>
-    <meta name="description" content="Carta romántica para Evelyn" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="sparkles" aria-hidden="true"></div>
-    <div id="heartRain" aria-hidden="true"></div>
-
-    <main class="container">
-      <section class="card">
-        <div class="shine"></div>
-        <div class="top-badge">Para Evelyn</div>
-        <h1>Te aprecio muchísimo</h1>
-        <p class="subtitle">De Alejandro</p>
-
-        <button id="loveButton" class="love-button" type="button">
-          <span class="love-button__icon">❤</span>
-          <span class="love-button__text">Te amo, Evelyn</span>
-        </button>
-
-        <div class="letter" aria-live="polite">
-          <p>
-            Mi amor, quiero que sepas que eres una de las personas más hermosas que han entrado en mi vida.
-            No solo por cómo me haces sentir, sino por la paz, la alegría y el cariño que traes a cada momento.
-          </p>
-          <p>
-            Eres especial, eres luz, eres calma y eres la razón por la que a veces me siento tan feliz sin
-            siquiera buscarlo. Gracias por ser tú, por tu sonrisa, por tu presencia y por hacer que mi corazón se sienta en casa.
-          </p>
-          <p>
-            Te valoro mucho, te quiero mucho y siempre voy a recordar con cariño cada momento que compartimos.
-            Evelyn, eres muy especial para mí y me encanta tenerte cerca.
-          </p>
-          <p class="signature">Con todo mi amor, Alejandro ❤</p>
-        </div>
-      </section>
-    </main>
-
-    <script src="script.js"></script>
-  </body>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para Evelyn</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;overflow:hidden;font-family:Segoe UI,sans-serif;background:linear-gradient(135deg,#ff8fab,#8e6bff,#7bdff2,#f9d423);background-size:300% 300%;animation:bg 12s ease infinite;color:#fff}@keyframes bg{50%{background-position:100% 50%}}.rain{position:fixed;inset:0;overflow:hidden;pointer-events:none}.heart{position:absolute;font-size:28px;animation:fall linear forwards}@keyframes fall{from{transform:translateY(-40px);opacity:0}10%{opacity:1}to{transform:translateY(110vh) rotate(25deg);opacity:0}}.card{width:min(92vw,680px);padding:42px 28px 30px;text-align:center;background:#ffffff2e;backdrop-filter:blur(12px);border:1px solid #ffffff66;border-radius:28px;box-shadow:0 25px 60px #62195047;z-index:1}h1{margin:0;font-size:clamp(2.4rem,6vw,4rem);text-shadow:0 4px 20px #ffffff55}.sub{font-size:1.2rem}.messages{min-height:120px;position:relative;display:grid;place-items:center;margin:25px 0}.message{position:absolute;width:100%;font-size:clamp(1.1rem,2.4vw,1.5rem);font-style:italic;line-height:1.6;opacity:0;animation:show 12s infinite;text-shadow:0 2px 8px #0003}.message:nth-child(2){animation-delay:3s}.message:nth-child(3){animation-delay:6s}.message:nth-child(4){animation-delay:9s}@keyframes show{0%,20%{opacity:0;transform:translateY(10px)}25%,50%{opacity:1;transform:translateY(0)}55%,100%{opacity:0}}.buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}button{border:0;border-radius:999px;padding:14px 22px;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;background:linear-gradient(135deg,#ff5fa2,#ff9a8b);box-shadow:0 8px 20px #6f3e8a55}button:hover{transform:translateY(-2px)}.secondary{background:linear-gradient(135deg,#7d5ce6,#4cc9f0)}.music{position:fixed;right:20px;top:20px;width:52px;height:52px;padding:0;z-index:2}.playing{animation:pulse 1s infinite}@keyframes pulse{50%{transform:scale(1.12)}}.name,.final{font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;text-shadow:0 0 18px #fff8}.name{margin-top:28px;font-size:clamp(2.5rem,7vw,4rem);color:#ffd6e7}.final{font-size:clamp(2rem,5vw,3rem);color:#ffe0f0}.pop{position:fixed;pointer-events:none;font-size:2rem;animation:pop 1.3s forwards;z-index:3}@keyframes pop{to{opacity:0;transform:translateY(-70px) scale(1.4)}}
+</style>
+</head>
+<body>
+<div class="rain" id="rain"></div><button class="music" id="music">🎵</button>
+<main class="card"><h1>💜 Evelyn 💜</h1><p class="sub">Mensajes con cariño para ti</p><section class="messages"><div class="message">Te quiero con todo mi corazón y cada latido de mi alma.</div><div class="message">Tu sonrisa ilumina mis días y hace todo más bonito.</div><div class="message">Eres mi persona especial y mi razón para sonreír.</div><div class="message">Siempre quiero cuidarte y compartir momentos contigo.</div></section><div class="buttons"><button id="msg">💖 Mensaje bonito</button><button class="secondary" id="surprise">✨ Sorpresa</button></div><div class="name">Evelyn</div><div class="final">te amo yami ♡</div></main>
+<audio id="audio" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+<script>
+const rain=document.getElementById('rain'),audio=document.getElementById('audio'),music=document.getElementById('music');const emojis=['💗','💖','💞','💕','💓','💜'];
+function hearts(){let h=document.createElement('span');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'vw';h.style.animationDuration=4+Math.random()*4+'s';rain.append(h);setTimeout(()=>h.remove(),8000)}setInterval(hearts,350);
+function pop(x=innerWidth/2,y=innerHeight/2,n=24){for(let i=0;i<n;i++){let h=document.createElement('span');h.className='pop';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=x+(Math.random()*180-90)+'px';h.style.top=y+(Math.random()*100-50)+'px';document.body.append(h);setTimeout(()=>h.remove(),1300)}}
+document.getElementById('msg').onclick=()=>alert(['Eres mi persona favorita 💕','Te quiero infinitamente, Evelyn 💜','Gracias por llenar mi vida de alegría ✨','Siempre estarás en mi corazón 💖'][Math.floor(Math.random()*4)]);document.getElementById('surprise').onclick=()=>pop();let playing=false;music.onclick=()=>{playing?audio.pause():audio.play();playing=!playing;music.textContent=playing?'⏸':'🎵';music.classList.toggle('playing',playing)};document.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')pop(e.clientX,e.clientY,1)});
+</script>
+</body>
 </html>
