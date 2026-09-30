@@ -1,6 +1,7 @@
 const heartRain = document.getElementById('heartRain');
 const musicToggle = document.getElementById('musicToggle');
 const rainToggle = document.getElementById('rainToggle');
+const songPlayer = document.getElementById('songPlayer');
 
 let rainInterval = null;
 let isRainOn = false;
@@ -70,10 +71,16 @@ function toggleMusic() {
   isMusicOn = !isMusicOn;
 
   if (isMusicOn) {
+    if (songPlayer) {
+      songPlayer.src = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/alexwaarren/ordinary&color=%23ff5d8f&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true';
+    }
     startRomanticMelody();
     musicToggle.textContent = '🔇 Pausar música';
     musicInterval = setInterval(startRomanticMelody, 1700);
   } else {
+    if (songPlayer) {
+      songPlayer.src = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/alexwaarren/ordinary&color=%23ff5d8f&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true';
+    }
     clearInterval(musicInterval);
     musicToggle.textContent = '🔊 Encender música';
   }
