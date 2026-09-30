@@ -1,96 +1,64 @@
 const heartRain = document.getElementById('heartRain');
-const musicToggle = document.getElementById('musicToggle');
-const rainToggle = document.getElementById('rainToggle');
-const songPlayer = document.getElementById('songPlayer');
+const loveButton = document.getElementById('loveButton');
 
 let rainInterval = null;
-let isRainOn = false;
-let audioContext = null;
-let musicInterval = null;
-let isMusicOn = false;
 
 function createHeart() {
   const heart = document.createElement('span');
   heart.className = 'falling-heart';
   heart.textContent = '❤';
   heart.style.left = `${Math.random() * 100}%`;
-  heart.style.animationDuration = `${5 + Math.random() * 6}s`;
+  heart.style.animationDuration = `${5 + Math.random() * 5}s`;
   heart.style.fontSize = `${18 + Math.random() * 18}px`;
   heart.style.opacity = `${0.55 + Math.random() * 0.45}`;
   heartRain.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 12000);
+  setTimeout(() => heart.remove(), 10000);
 }
 
-function toggleRain() {
-  isRainOn = !isRainOn;
-
-  if (isRainOn) {
-    rainInterval = setInterval(createHeart, 220);
-    rainToggle.textContent = '💔 Detener lluvia de corazones';
-  } else {
-    clearInterval(rainInterval);
-    rainToggle.textContent = '💖 Hacer llover corazones';
-    heartRain.innerHTML = '';
-  }
+function startRain() {
+  if (rainInterval) return;
+  rainInterval = setInterval(createHeart, 240);
 }
 
-function startRomanticMelody() {
-  const melody = [329.63, 392.0, 440.0, 392.0, 523.25, 493.88, 440.0, 392.0, 349.23, 392.0, 440.0, 392.0];
+loveButton.addEventListener('click', () => {
+  loveButton.classList.add('clicked');
+  startRain();
 
-  if (!audioContext) {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    audioContext = new AudioCtx();
+  const burst = document.createElement('div');
+  burst.className = 'burst';
+  burst.textContent = 'Te amo 💖';
+  burst.style.position = 'fixed';
+  burst.style.left = '50%';
+  burst.style.top = '50%';
+  burst.style.transform = 'translate(-50%, -50%)';
+  burst.style.fontSize = '1.6rem';
+  burst.style.fontWeight = '800';
+  burst.style.color = '#d63f72';
+  burst.style.background = 'rgba(255,255,255,0.75)';
+  burst.style.padding = '12px 18px';
+  burst.style.borderRadius = '999px';
+  burst.style.boxShadow = '0 16px 32px rgba(214, 63, 114, 0.2)';
+  burst.style.zIndex = '20';
+  burst.style.animation = 'floatUp 1.8s ease forwards';
+  document.body.appendChild(burst);
+
+  setTimeout(() => {
+    burst.remove();
+    loveButton.classList.remove('clicked');
+  }, 1800);
+});
+
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translate(-50%, -30%) scale(0.8); }
+    20% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -140%) scale(1.2); }
   }
-
-  if (audioContext.state === 'suspended') {
-    audioContext.resume();
-  }
-
-  const now = audioContext.currentTime;
-  melody.forEach((frequency, index) => {
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    oscillator.type = 'sine';
-    oscillator.frequency.value = frequency;
-
-    gainNode.gain.setValueAtTime(0.0001, now + index * 0.42);
-    gainNode.gain.exponentialRampToValueAtTime(0.08, now + index * 0.42 + 0.04);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.42 + 0.38);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
-    oscillator.start(now + index * 0.42);
-    oscillator.stop(now + index * 0.42 + 0.4);
-  });
-}
-
-function toggleMusic() {
-  isMusicOn = !isMusicOn;
-
-  if (isMusicOn) {
-    if (songPlayer) {
-      songPlayer.src = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/alexwaarren/ordinary&color=%23ff5d8f&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true';
-    }
-    startRomanticMelody();
-    musicToggle.textContent = '🔇 Pausar música';
-    musicInterval = setInterval(startRomanticMelody, 1700);
-  } else {
-    if (songPlayer) {
-      songPlayer.src = 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/alexwaarren/ordinary&color=%23ff5d8f&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true';
-    }
-    clearInterval(musicInterval);
-    musicToggle.textContent = '🔊 Encender música';
-  }
-}
-
-rainToggle.addEventListener('click', toggleRain);
-musicToggle.addEventListener('click', toggleMusic);
+`;
+document.head.appendChild(style);
 
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    toggleRain();
-  }, 800);
+  setTimeout(startRain, 500);
 });
